@@ -1,0 +1,116 @@
+# webcomponents-test-elements
+### Demo of an Web Components Kit (not production ready)
+
+This repository contains a demo of a Web Components Kit.  
+The kit is a collection of reusable components that can be used to build Web Components for [**micro-lc element composer**](https://github.com/micro-lc/micro-lc-element-composer)   
+  
+Each component is a custom element that can be used to build a Web App.  
+
+In this demo there are three components:
+
+  * **Filter** - a input box that can be used to filter the list of items.
+  * **Detail** - a panel that can be used to display the details of an item.
+  * **Table** - a table that can be used to display a list of items.
+  
+Each component implements method to read and write message to the eventBus. By default the eventBus is injected in the component by micro-lc element composer.
+
+  * **Filter** - don't need any other properties than the eventBus.
+  * **Detail** - don't need any other properties than the eventBus.
+  * **Table** - use the property data to inject the list of items to display.
+    * An example of a list of items and related header:
+    ```json
+      {
+        header: ["Company", "Contact", "Country"],
+        body: [
+          ["Big Pharma Spa", "Michele Rossi", "Italy"],
+          ["Insurance Ltd", "Sarah Boyle", "United Kingdom"],
+          ["Utility Company S.A.", "Lalo Mandes", "Spain"],
+          ["Distribution Corp", "Annette Richelieu", "France"],
+          ["Manufacturing Industries gmb", "Herbert Althaus", "Germany"],
+          ["Transportation Inc", "Ria Veras", "Portugal"]
+        ],
+      }
+      ```
+  
+Install the dependencies:
+```
+npm i
+```
+
+Start the application:
+```
+npm start 
+```
+
+After starting the application you can't navigate the demo out of the box because the demo is related with **micro-lc element composer**.
+
+If you want to see the demo in action you can use the following procedure:
+
+**About micro-lc element composer:**
+  * clone the [micro-lc element composer repository](https://github.com/micro-lc/micro-lc-element-composer)
+  * inside micro-lc project install the dependencies using: ``` yarn install ```
+  * inside micro-lc project, within the file ```/mock-server/api/v1/microlc/configuration/{configFile}/get.js``` replace the configuration content with the following:
+```
+{
+  type: "column",
+  attributes: {
+    style: "display: flex; flex-direction: column; align-items: center;",
+  },
+  content: [
+    {
+      type: "element",
+      tag: "script",
+      url: "https://unpkg.com/@webcomponents/webcomponentsjs@latest/webcomponents-loader.js",
+    },
+    {
+      type: "element",
+      url: "http://localhost:8000/dist/Filter.bundled.esm.js",
+      tag: "element-filter",
+    },
+    {
+      type: "column",
+      attributes: {
+        style: "display: flex; flex-direction: row;",
+      },
+      content: [
+        {
+          type: "element",
+          url: "http://localhost:8000/dist/Table.bundled.esm.js",
+          tag: "element-table",
+          properties: {
+            data: {
+              header: ["Company", "Contact", "Country"],
+              body: [
+                ["Big Pharma Spa", "Michele Rossi", "Italy"],
+                ["Insurance Ltd", "Sarah Boyle", "United Kingdom"],
+                ["Utility Company S.A.", "Lalo Mandes", "Spain"],
+                ["Distribution Corp", "Annette Richelieu", "France"],
+                ["Manufacturing Industries gmb", "Herbert Althaus", "Germany"],
+                ["Transportation Inc", "Ria Veras", "Portugal"]
+              ],
+            },
+          },
+        },
+        {
+          type: "element",
+          url: "http://localhost:8000/dist/Detail.bundled.esm.js",
+          tag: "element-detail",
+        }
+      ]
+    }
+  ]
+}
+```
+  * run the following command: ``` yarn dev ```
+
+**About this repository:**
+  * inside this repository install the dependencies with the following command: ``` npm install ```
+  * inside this repository start the application with the following command: ``` npm start ```
+
+
+Now you have:
+  * the Web Components Kit up and running on localhost:8000 (if the port is not 8000 you need to change it in the configuration above).
+  * the micro-lc element composer up and running on localhost:3000.
+
+You can navigate to http://localhost:3000 to see the demo in action.
+
