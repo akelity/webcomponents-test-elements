@@ -1,0 +1,60 @@
+{
+  "name": "webcomponents-test-elements",
+  "version": "1.0.0",
+  "description": "Demo of an Web Components Kit (not production ready)",
+  "module": "dist/",
+  "type": "module",
+  "scripts": {
+    "start": "npm run build && npm run serve",
+    "build": "rollup -c",
+    "build:watch": "rollup -cw",
+    "serve": "wds --watch",
+    "serve:prod": "MODE=prod npm run serve",
+    "test": "npm run test:dev && npm run test:prod",
+    "test:dev": "wtr",
+    "test:prod": "MODE=prod wtr",
+    "analyze": "cem analyze --litelement --globs \"src/**/*.js\" --exclude \"src/index.js\" --exclude \"src/**/index.js\" --exclude \"src/**/*_test.js\"",
+    "analyze:watch": "cem analyze --litelement --globs \"src/**/*.js\" --exclude \"src/index.js\" --exclude \"src/**/index.js\" --exclude \"src/**/*_test.js\" --watch",
+    "checksize": "rollup -c && npm run checksize:detail && npm run checksize:filter && npm run checksize:table",
+    "checksize:detail": "cat dist/Detail.bundled.esm.js | gzip -9 | wc -c && rm dist/Detail.bundled.esm.js",
+    "checksize:filter": "cat dist/Filter.bundled.esm.js | gzip -9 | wc -c && rm dist/Filter.bundled.esm.js",
+    "checksize:table": "cat dist/Table.bundled.esm.js | gzip -9 | wc -c && rm dist/Table.bundled.esm.js"
+  },
+  "keywords": [
+    "web-components",
+    "lit",
+    "lit-element",
+    "javascript"
+  ],
+  "author": "Michel Murabito",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "lit": "^2.1.0"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.5.7",
+    "@koa/cors": "^3.2.0",
+    "@open-wc/testing": "^3.0.0-next.1",
+    "@open-wc/testing-karma": "^4.0.9",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@types/mocha": "^9.0.0",
+    "@web/dev-server": "^0.1.22",
+    "@web/dev-server-legacy": "^0.1.4",
+    "@web/dev-server-rollup": "^0.3.9",
+    "@web/test-runner": "^0.13.16",
+    "@web/test-runner-mocha": "^0.7.4",
+    "@web/test-runner-playwright": "^0.8.4",
+    "@webcomponents/webcomponentsjs": "^2.6.0",
+    "babel-eslint": "^10.1.0",
+    "deepmerge": "^4.2.2",
+    "eslint": "^7.32.0",
+    "lit-analyzer": "^1.1.10",
+    "mocha": "^9.1.1",
+    "prettier": "^2.3.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.28.2",
+    "rollup-plugin-summary": "^1.2.3",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "customElements": "custom-elements.json"
+}
