@@ -1,4 +1,4 @@
 /node_modules/
-/dist/
 custom-elements.json
+.idea/
 # only generated for size check
